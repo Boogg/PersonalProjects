@@ -23,15 +23,16 @@ public class Asteroid extends GameObject{
     
     BufferedImage asteroids = null;
     
-    int srcX, srcY;
+    int srcX, srcY, counter;
     int sheetSize = 256;
-    float rotate, rotateSpeed, scale=0.25f;
+    float rotate, rotateSpeed;
     
     
     public Asteroid(int x, int y, ID id){
         super(x, y, id);
-        
+        this.counter = 0;
         this.speed = 5;
+        this.collided = false;
         //set up for using random method
         Random rand = new Random();
         
@@ -44,13 +45,15 @@ public class Asteroid extends GameObject{
         //random scale of sprite to be drawn between 0.25 and 0.50
         scale = (float)(rand.nextInt(25)+25)/(float)100.0;
         
-        //set the radius to be used for collisions
-        this.radius = (float)(Math.sqrt((height*height+width*width)) - 30)* scale;
+
         
         //set the height and width of the sprite to be drawn
         height = (asteroids.getHeight(null)/2)*scale;
         width = (asteroids.getWidth(null)/2)*scale;
-             
+        
+        //set the radius to be used for collisions
+        this.radius = (int)(Math.sqrt((height*height+width*width)));  
+        
         //set random velocities in X and Y direction that are not zero
         do{
             velX=rand.nextInt(speed)- (speed/2);
@@ -69,7 +72,7 @@ public class Asteroid extends GameObject{
             rotateSpeed = rand.nextInt(121)-60;
         }while(rotateSpeed < 29 && rotateSpeed > -29);
         
-        hitbox = new Rectangle((int)x, (int)y, (int)(x+width),(int)(y+height));
+//        hitbox = new Rectangle((int)x, (int)y, (int)(x+width),(int)(y+height));
         
       
        
@@ -95,7 +98,12 @@ public class Asteroid extends GameObject{
         if(y<-height) y=Game.HEIGHT;
         if(y>Game.HEIGHT) y= -height;
         
-        
+        if(counter > 30 && collided ){
+            collided = false;
+        }else{
+            counter++;
+            if(counter>30)counter=0;
+        }
 
     }
     

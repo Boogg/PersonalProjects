@@ -17,11 +17,11 @@ public abstract class GameObject {
     
     protected float x, y, mouseX, mouseY;
     protected ID id;
-    protected float velX, velY, direction, radius, height, width;
-    protected boolean fired;
+    protected float velX, velY, direction, radius, height, width, scale;
+    protected boolean fired, collided;
     Rectangle hitbox;
     int collide = 0, speed;
-    private Handler handler;
+   // private Handler handler;
     
     public GameObject(float x, float y, ID id){
         this.x = x;
@@ -33,55 +33,7 @@ public abstract class GameObject {
     public abstract void tick();
     public abstract void render(Graphics2D g);
     
-//    public int intersect(Rectangle r1, Rectangle r2){
-//
-//        if (Math.min(r1.x + r1.width, r2.x + r2.width) >= Math.max(r1.x, r2.x)){
-//            if (Math.min(r1.y + r1.height, r2.y + r2.height) >= Math.max(r1.y, r2.y)){
-//                if(r1.x != r2.x){
-//                    if(r1.y != r2.y)return 1;
-//                    else return 3;
-//                }else return 2;  
-//            }
-//        }
-//        
-//        return 0;
-//    }
-//     
-//    
-//    public void collision(int i, GameObject tempObject1){
-//            if(tempObject1.getID() == ID.Enemy){
-//                for(int j = 0; j< handler.object.size(); j++){
-//                    GameObject tempObject2 = handler.object.get(j);
-//                    if(tempObject2.getID() == ID.Enemy && i!=j){
-//                        collide = intersect(tempObject.getHitbox(),
-//                                            tempObject2.getHitbox());
-//                        
-//                        if(collide != 0){
-//
-//                            switch(collide){
-//                                case 1: tempObject.velX *= -1;
-//                                        tempObject.velY *= -1;
-//                                        tempObject2.velX *= -1;
-//                                        tempObject2.velY *= -1;
-//                                        break;
-//                                case 2: tempObject.velY *= -1;
-//                                        tempObject2.velY *= -1;
-//                                        break; 
-//                                case 3: tempObject.velX *= -1;
-//                                        tempObject2.velX *= -1;
-//                                        break;
-//                                default: break;
-//                            }
-//
-//                        }
-//                            
-//                    }
-//                }
-//            
-//            }
-//        }
-//    }
-//    
+
     //setter getters
     public void setX(int x){
         this.x = x;
@@ -113,7 +65,6 @@ public abstract class GameObject {
     public float getVelY(){
         return velY;
     }
-    
     public void setMouseX(int x){
         this.mouseX=x;
     }
@@ -127,18 +78,13 @@ public abstract class GameObject {
     public void setFired(boolean fired){
         this.fired = fired;
     }
-//    public void shoot(){
-//        if(this.fired){
-//            System.out.println("1");
-//            try{
-//                handler.addObject(new Bullet(this.x, this.y, ID.Bullet, this.direction));
-//            }catch(Exception e){
-//                System.out.println(e.getMessage()+" broken");
-//               
-//            }
-//        }
-//    }
     
+    public void setCollided(boolean collided){
+        this.collided = collided;
+    }
+    public boolean getCollided(){
+        return this.collided;
+    }
     public boolean intersect(float x1, float y1, float radius1, 
                              float x2, float y2, float radius2){
         

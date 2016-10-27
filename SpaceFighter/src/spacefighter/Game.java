@@ -75,7 +75,7 @@ public class Game extends Canvas implements Runnable{
         requestFocus();
         for(int i=0;i<15; i++){
      //       int x=rand;
-        handler.addObject(new Asteroid(rand.nextInt(WIDTH-40)+5, rand.nextInt(HEIGHT-40)+5, ID.Enemy));
+        handler.addObject(new Asteroid(rand.nextInt(WIDTH-40)+5, rand.nextInt(HEIGHT-40)+5, ID.Asteroid));
         }
         handler.addObject(new Player(WIDTH/2 -32, HEIGHT/2-32, ID.Player)); 
         

@@ -17,8 +17,7 @@ import javax.imageio.ImageIO;
 public class Player extends GameObject{
     
     int shotCounter;
-    public float delX, delY, width, height;
-    public float scale;
+    public float delX, delY;
     public Bullet bullet;
     
     Graphics2D g2d;
@@ -33,6 +32,7 @@ public class Player extends GameObject{
         this.speed = 7;
         this.scale = (float)0.5;
         this.shotCounter = 0;
+
         
 
         try {
@@ -40,7 +40,9 @@ public class Player extends GameObject{
         } catch (IOException e) {
         }
         height = fighter.getHeight(null)*scale;
-        width = fighter.getWidth(null)*scale;
+        width = fighter.getWidth(null)*scale;     
+        
+        this.radius = (int)Math.sqrt((height*height)+(width*width));
     }
     
  

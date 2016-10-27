@@ -7,7 +7,7 @@ package spacefighter;
  */
 public enum ID {
     Player(),
-    Enemy(),
+    Asteroid(),
     Bullet();
     
 }

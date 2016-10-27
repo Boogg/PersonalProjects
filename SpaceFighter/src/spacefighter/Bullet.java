@@ -20,8 +20,7 @@ public class Bullet extends GameObject{
     
 //    BufferedImage laserBeam = null;
     
-    int width, height, startSrcY, endSrcY;
-    float scale;
+    int startSrcY, endSrcY;
 
     public Bullet(float x, float y, ID id, float direction) {
         super(x, y, id);
@@ -29,20 +28,24 @@ public class Bullet extends GameObject{
         this.speed = 10;
         this.scale = 0.04f;
         
+
+        
         //load the sprite sheet
 //        try {
 //         laserBeam = ImageIO.read(new File("src/spacefighter/sprites/laser_beam.png"));
 //        } catch (IOException e) {
 //            System.out.println("Bullet.java:36 Cannot open laser_beam.png");
 //        } 
-        
+//        
 //        this.height = (int)(laserBeam.getHeight(null)*scale);
 //        this.width = height/2;
 //        this.startSrcY = 0;
 //        this.endSrcY = (int)(laserBeam.getWidth(null)/4);
-
-this.height = 4;
-this.width=4;
+//
+        this.height = 8;
+        this.width  = 8;        
+        this.radius = 4;
+                
     }
 
     @Override
@@ -50,8 +53,8 @@ this.width=4;
         
         velX = (float)(speed * Math.cos(direction));
         velY = (float)(speed * Math.sin(direction));
-        if(endSrcY < 145)endSrcY += speed/scale;
-        if(endSrcY > 72 && startSrcY < 72)startSrcY += speed/scale;
+//        if(endSrcY < 145)endSrcY += speed/scale;
+//        if(endSrcY > 72 && startSrcY < 72)startSrcY += speed/scale;
         x += velX;
         y += velY;
         
@@ -62,8 +65,8 @@ this.width=4;
         
         
        g.setColor(Color.blue);
-        
-       g.fillOval((int)x, (int)y, 4, 4);
+
+       g.fillOval((int)x, (int)y, (int)this.height, (int)this.width);
   
 //       g.rotate(this.direction+Math.PI/2,(int)x+width/2,(int)y+height/2);
 //       g.drawImage(laserBeam,

@@ -17,6 +17,8 @@ import java.util.LinkedList;
 public class Handler {
     LinkedList<GameObject> objects = new LinkedList<>();
     
+    int counter = 0;
+    
     public void tick(){
         for(int i = 0; i< objects.size(); i++){
             GameObject tempObject = objects.get(i);
@@ -24,11 +26,12 @@ public class Handler {
             collision(i, tempObject);
              if(tempObject.getID() == ID.Player){
                 
-                if(tempObject.fired == true){ 
-                    System.out.println("shoot");
+                if(tempObject.fired == true && counter > 15){ 
+                   // System.out.println("shoot");
                     shoot(tempObject);  
                     tempObject.setFired(false);
-                }
+                    counter = 0;
+                }else counter++;
                 }
              if((tempObject.getX() <= -100)||(tempObject.getY() <= -100)){
                  if((tempObject.getX() >= Window.HEIGHT + 100)||(tempObject.getY() >= Window.WIDTH + 100)){
@@ -70,28 +73,40 @@ public class Handler {
     
     public void collision(int i, GameObject tempObject){
         
-            if(tempObject.getID() == ID.Enemy){
+            if(tempObject.getID() == ID.Asteroid){
                 for(int j = 0; j< objects.size(); j++){
                     GameObject tempObject2 = objects.get(j);
-                    if((tempObject2.getID() == ID.Enemy) && (i != j)){
+                    if((tempObject2.getID() == ID.Asteroid) && (i != j)){
                         if(intersect(tempObject.x + tempObject.width /2, tempObject.y + tempObject.height /2, tempObject.radius, 
-                             tempObject2.x + tempObject2.height /2, tempObject2.y + tempObject2.height /2, tempObject2.radius)){
-
+                             tempObject2.x + tempObject2.height /2, tempObject2.y + tempObject2.height /2, tempObject2.radius)
+                                && !tempObject.getCollided() && !tempObject.getCollided()){
                            // System.out.println(tempObject.hitbox.intersection(tempObject2.hitbox));
-         //                   if(Math.abs(tempObject.getVelX()) >= Math.abs(tempObject.getVelY())){
-                                tempObject.setVelY(tempObject.velY * -1);
-                               // removeObject(tempObject2);
-                              //  System.out.println("2");
-           //                 }else (  tempObject.setVelX(tempObject.velX * -1);
-         //                   if(Math.abs(tempObject2.getVelX()) >= Math.abs(tempObject2.getVelY())){
-                                tempObject2.setVelY(-tempObject2.velY);
-                             //   System.out.println("1");
-          //                  }else(tempObject2.setVelX(tempObject2.velX * -1);
+//                            if(tempObject.scale >= tempObject2.scale){
+//                                tempObject.setVelY(tempObject.velY * -1);
+//                               // removeObject(tempObject2);
+//                                System.out.println("2");
+//                            }else   tempObject.setVelX(tempObject.velX * -1);
+//                            if(Math.abs(tempObject2.getVelX()) >= Math.abs(tempObject2.getVelY())){
+//                                tempObject2.setVelY(-tempObject2.velY);
+//                                System.out.println("1");
+//                            }else tempObject2.setVelX(tempObject2.velX * -1);
+
+                            tempObject.setVelX((tempObject.getVelX()*tempObject.scale)-(tempObject2.getVelX()*tempObject2.scale));
+                            tempObject.setVelY((tempObject.getVelY()*tempObject.scale)-(tempObject2.getVelY()*tempObject2.scale));
+                            tempObject2.setVelX((tempObject.getVelX()*tempObject.scale)-(tempObject2.getVelX()*tempObject2.scale));
+                            tempObject2.setVelY((tempObject.getVelY()*tempObject.scale)-(tempObject2.getVelY()*tempObject2.scale));
+                            tempObject.setCollided(true);
+                            tempObject2.setCollided(true);
                             
                             
+                        }         
+                    }else if(tempObject2.getID() == ID.Bullet){
+                        if(intersect(tempObject.x + tempObject.width /2, tempObject.y + tempObject.height /2, tempObject.radius, 
+                             tempObject2.x + tempObject2.height/2, tempObject2.y + tempObject2.height /2, tempObject2.radius)){
+                            
+                            removeObject(tempObject);
+                            removeObject(tempObject2);
                         }
-                       
-                           
                     }
                 }
             
@@ -112,6 +127,6 @@ public class Handler {
     }
     
         public void shoot(GameObject tempObject){
-            addObject(new Bullet(tempObject.x, tempObject.y, ID.Bullet, tempObject.direction));
+            addObject(new Bullet((tempObject.x + tempObject.width/2), (tempObject.y + tempObject.height/2), ID.Bullet, tempObject.direction));
         }
 }
