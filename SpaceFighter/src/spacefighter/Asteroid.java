@@ -56,8 +56,8 @@ public class Asteroid extends GameObject{
         
         //set random velocities in X and Y direction that are not zero
         do{
-            velX=rand.nextInt(speed)- (speed/2);
-            velY=rand.nextInt(speed)- (speed/2);
+            velX=rand.nextInt((int)speed)- (speed/2);
+            velY=rand.nextInt((int)speed)- (speed/2);
         } while(velY == 0 && velX == 0); 
    
         //randomly assign an asteroid from the asteroid sprite sheet using its

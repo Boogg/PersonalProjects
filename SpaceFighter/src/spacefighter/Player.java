@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
 public class Player extends GameObject{
     
     int shotCounter;
-    public float delX, delY;
+    public float delX, delY, maxSpeed;
     public Bullet bullet;
     
     Graphics2D g2d;
@@ -29,10 +29,11 @@ public class Player extends GameObject{
         super(x, y, id);
         
         this.fired = false;
-        this.speed = 7;
+        this.speed = 0;
+        this.maxSpeed = 12;
         this.scale = (float)0.5;
         this.shotCounter = 0;
-
+        this.accelerationRate = 0;
         
 
         try {
@@ -45,14 +46,18 @@ public class Player extends GameObject{
         this.radius = (int)Math.sqrt((height*height)+(width*width));
     }
     
- 
+
     
     @Override
     public void tick(){
      
         
-        velX=0;
-        velY=0;
+//        velX=0;
+//        velY=0;
+        
+        if(speed<=maxSpeed && speed>= 0){
+            speed+=accelerationRate;
+        }
                //calculate difference of the player and curser in x and y 
         delX = (mouseX - (x+width/2));
         delY = (mouseY - (y+height/2));
@@ -79,16 +84,7 @@ public class Player extends GameObject{
         
 
        
-//        if(shotCounter >= 15){
-//            if(this.fired){
-//                shoot();
-//                shotCounter = 0;
-//                this.fired = false;
-//            }
-//        }else{ 
-//          shotCounter++;   
-//        }
-        
+ 
     }
     
     @Override

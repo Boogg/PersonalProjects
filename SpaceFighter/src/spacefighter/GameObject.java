@@ -17,10 +17,10 @@ public abstract class GameObject {
     
     protected float x, y, mouseX, mouseY;
     protected ID id;
-    protected float velX, velY, direction, radius, height, width, scale;
+    protected float velX, velY, direction, radius, height, width, scale, accelerationRate, speed;
     protected boolean fired, collided;
-    Rectangle hitbox;
-    int collide = 0, speed;
+  //  Rectangle hitbox;
+    int collide = 0;
    // private Handler handler;
     
     public GameObject(float x, float y, ID id){
@@ -71,9 +71,14 @@ public abstract class GameObject {
     public void setMouseY(int y){
         this.mouseY=y;
     }
-    public Rectangle getHitbox(){
-        return hitbox;
+    
+    public void setAcceleration(float a){
+        this.accelerationRate = a;
     }
+    
+//    public Rectangle getHitbox(){
+//        return hitbox;
+//    }
     
     public void setFired(boolean fired){
         this.fired = fired;

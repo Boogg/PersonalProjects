@@ -18,15 +18,15 @@ import javax.imageio.ImageIO;
  */
 public class Bullet extends GameObject{
     
-//    BufferedImage laserBeam = null;
+   // BufferedImage laserBeam = null;
     
     int startSrcY, endSrcY;
 
     public Bullet(float x, float y, ID id, float direction) {
         super(x, y, id);
-        this.direction = direction;
+        this.direction = direction+(float)Math.PI/2;
         this.speed = 10;
-        this.scale = 0.04f;
+        this.scale = 0.6f;
         
 
         
@@ -40,7 +40,7 @@ public class Bullet extends GameObject{
 //        this.height = (int)(laserBeam.getHeight(null)*scale);
 //        this.width = height/2;
 //        this.startSrcY = 0;
-//        this.endSrcY = (int)(laserBeam.getWidth(null)/4);
+//        this.endSrcY = (int)(laserBeam.getWidth(null)*scale);
 //
         this.height = 8;
         this.width  = 8;        
@@ -51,10 +51,9 @@ public class Bullet extends GameObject{
     @Override
     public void tick() {
         
-        velX = (float)(speed * Math.cos(direction));
-        velY = (float)(speed * Math.sin(direction));
-//        if(endSrcY < 145)endSrcY += speed/scale;
-//        if(endSrcY > 72 && startSrcY < 72)startSrcY += speed/scale;
+        velX = (float)(speed * Math.sin(direction));
+        velY = (float)(speed * Math.cos(direction));
+
         x += velX;
         y += velY;
         
@@ -64,17 +63,19 @@ public class Bullet extends GameObject{
     public void render(Graphics2D g) {
         
         
-       g.setColor(Color.blue);
 
-       g.fillOval((int)x, (int)y, (int)this.height, (int)this.width);
-  
-//       g.rotate(this.direction+Math.PI/2,(int)x+width/2,(int)y+height/2);
+
+//       g.rotate(this.direction+Math.PI,(int)x+width/2,(int)y+height/2);
 //       g.drawImage(laserBeam,
 //                    (int)x, (int)y,
 //                    (int)(x+width), (int)(y+height),
 //                    0, startSrcY, 318, endSrcY,
 //                    null);
-//       g.rotate(this.direction+Math.PI/2*(-1),(int)x+width/2,(int)y+height/2);
+//       
+       g.setColor(Color.blue);
+       g.fillOval((int)x, (int)y, (int)this.height, (int)this.width);       
+       
+  //     g.rotate(this.direction+Math.PI*(-1),(int)x+width/2,(int)y+height/2);
     }
     
     
