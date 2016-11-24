@@ -101,8 +101,8 @@ public class Handler {
                             
                         }         
                     }else if(tempObject2.getID() == ID.Bullet){
-                        if(intersect(tempObject.x + tempObject.width /2, tempObject.y + tempObject.height /2, tempObject.radius, 
-                             tempObject2.x + tempObject2.height/2, tempObject2.y + tempObject2.height /2, tempObject2.radius)){
+                        if(intersect(tempObject.x + (tempObject.width /2), tempObject.y + (tempObject.height /2), tempObject.radius, 
+                             tempObject2.x + (tempObject2.height/2), tempObject2.y + (tempObject2.height /2), tempObject2.radius)){
                             
                             removeObject(tempObject);
                             removeObject(tempObject2);
@@ -117,11 +117,8 @@ public class Handler {
         public boolean intersect(float x1, float y1, float radius1, 
                              float x2, float y2, float radius2){
         
-        if(
-                ((x1+radius1)-(x2+radius2))*((x1+radius1)-(x2+radius2))+
-                ((y1+radius1)-(y2+radius2))*((y1+radius1)-(y2+radius2))
-                <= (radius1*radius1 + radius2*radius2)
-                ){
+        if( (x1-x2)*(x1-x2)+(y1-y2)*(y1-y2)<=(radius1*radius1 + radius2*radius2)+20)
+        {
         return true;
         }else return false;
     }

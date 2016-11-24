@@ -21,11 +21,12 @@ public class Bullet extends GameObject{
    // BufferedImage laserBeam = null;
     
     int startSrcY, endSrcY;
+    
 
     public Bullet(float x, float y, ID id, float direction) {
         super(x, y, id);
-        this.direction = direction+(float)Math.PI/2;
-        this.speed = 10;
+        this.direction = (direction)+(float)Math.PI/2;
+        this.speed = 12;
         this.scale = 0.6f;
         
 
@@ -45,18 +46,18 @@ public class Bullet extends GameObject{
         this.height = 8;
         this.width  = 8;        
         this.radius = 4;
+      
+        velY = (float)(speed * Math.sin(direction));
+        velX = (float)(speed * Math.cos(direction));       
                 
     }
 
     @Override
-    public void tick() {
-        
-        velX = (float)(speed * Math.sin(direction));
-        velY = (float)(speed * Math.cos(direction));
+    public void tick() { 
 
         x += velX;
         y += velY;
-        
+            
     }
 
     @Override

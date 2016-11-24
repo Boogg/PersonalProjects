@@ -28,19 +28,20 @@ public class Asteroid extends GameObject{
     float rotate, rotateSpeed;
     
     
-    public Asteroid(int x, int y, ID id){
+    public Asteroid(int x, int y, ID id, BufferedImage asteroids){
         super(x, y, id);
         this.counter = 0;
         this.speed = 5;
         this.collided = false;
+        this.asteroids = asteroids;
         //set up for using random method
         Random rand = new Random();
         
         //load the sprite sheet
-        try {
-         asteroids = ImageIO.read(new File("src/spacefighter/sprites/asteroids.png"));
-        } catch (IOException e) {
-        }   
+//        try {
+//         asteroids = ImageIO.read(new File("src/spacefighter/sprites/asteroids.png"));
+//        } catch (IOException e) {
+//        }   
         
         //random scale of sprite to be drawn between 0.25 and 0.50
         scale = (float)(rand.nextInt(25)+25)/(float)100.0;

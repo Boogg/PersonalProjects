@@ -25,21 +25,22 @@ public class Player extends GameObject{
 //    int cellWidth = fighter.getWidth(null);
 //    int cellHeight = fighter.getHeight(null); 
 
-    public Player(float x, float y, ID id){
+    public Player(float x, float y, ID id, BufferedImage fighter){
         super(x, y, id);
         
         this.fired = false;
-        this.speed = 0;
+        this.speed = 7;
         this.maxSpeed = 12;
         this.scale = (float)0.5;
         this.shotCounter = 0;
         this.accelerationRate = 0;
+        this.fighter = fighter;
         
 
-        try {
-         fighter = ImageIO.read(new File("src/spacefighter/sprites/fighter.png"));
-        } catch (IOException e) {
-        }
+//        try {
+//         fighter = ImageIO.read(new File("src/spacefighter/sprites/fighter.png"));
+//        } catch (IOException e) {
+//        }
         height = fighter.getHeight(null)*scale;
         width = fighter.getWidth(null)*scale;     
         
@@ -104,7 +105,7 @@ public class Player extends GameObject{
                     (int)(x+width), (int)(y+height),
                     0, 0, 96, 96,
                     null);
-        g.rotate(this.direction+Math.PI/2*(-1),(int)x+width/2,(int)y+height/2);
+        g.rotate((this.direction+Math.PI/2)*(-1),(int)x+width/2,(int)y+height/2);
     }
 }
         

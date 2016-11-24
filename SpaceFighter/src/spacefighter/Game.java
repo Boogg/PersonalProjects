@@ -24,9 +24,8 @@ public class Game extends Canvas implements Runnable{
     public static final int WIDTH = 1080, HEIGHT = WIDTH / 12 * 9;
     
     //background images
-    public BufferedImage background, space1 = null, space2 = null,
-                         space3 = null,space4 = null, space5 = null,
-                         space6 = null;
+    public BufferedImage[] space = new BufferedImage[6];
+    public BufferedImage background = null;
     
     private Thread thread;
     private boolean running = false;
@@ -41,44 +40,39 @@ public class Game extends Canvas implements Runnable{
         this.addKeyListener(new KeyInput(handler));
         this.addMouseMotionListener(new MouseInput(handler));
         
-        //load backgrounds
-        try {
-            space1 = ImageIO.read(new File("src/spacefighter/sprites/nebula1.jpg"));
-            space2 = ImageIO.read(new File("src/spacefighter/sprites/nebula2.jpg"));
-            space3 = ImageIO.read(new File("src/spacefighter/sprites/nebula3.jpg"));
-            space4 = ImageIO.read(new File("src/spacefighter/sprites/unicorn1.png"));
-            space5 = ImageIO.read(new File("src/spacefighter/sprites/galaxy1.jpg"));
-            space6 = ImageIO.read(new File("src/spacefighter/sprites/galaxy2.jpg"));
-        } catch (IOException e) {
+//        //load backgrounds
+//        try {
+//            space1 = ImageIO.read(new File("src/spacefighter/sprites/nebula1.jpg"));
+//            space2 = ImageIO.read(new File("src/spacefighter/sprites/nebula2.jpg"));
+//            space3 = ImageIO.read(new File("src/spacefighter/sprites/nebula3.jpg"));
+//            space4 = ImageIO.read(new File("src/spacefighter/sprites/unicorn1.png"));
+//            space5 = ImageIO.read(new File("src/spacefighter/sprites/galaxy1.jpg"));
+//            space6 = ImageIO.read(new File("src/spacefighter/sprites/galaxy2.jpg"));
+//        } catch (IOException e) {
+//        }
+
+        SpriteLibrary sprites = new SpriteLibrary();
+        
+        for(int i=0;i>6;i++){
+            space[i] = sprites.getSpace(i+1);
         }
         
-        int backgroundSelect= rand.nextInt(6)+1;
+        int backgroundSelect = rand.nextInt(6);
         
-        switch(backgroundSelect){
-            case 1: background = space1;
-                break;
-            case 2: background = space2;
-                break;
-            case 3: background = space3;
-                break;
-            case 4: background = space4;
-                break;
-            case 5: background = space5;
-                break;
-            case 6: background = space6;
-                break;
-            default: background = null;
-                break;
-        }
+        
+        background = space[backgroundSelect];
         
         new Window(WIDTH, HEIGHT, "Space Fighter", this);
         requestFocus();
+        
+        
+        handler.addObject(new Player(WIDTH/2 -32, HEIGHT/2-32, ID.Player, sprites.getFighter())); 
+        
         for(int i=0;i<15; i++){
      //       int x=rand;
-        handler.addObject(new Asteroid(rand.nextInt(WIDTH-40)+5, rand.nextInt(HEIGHT-40)+5, ID.Asteroid));
+        handler.addObject(new Asteroid(rand.nextInt(WIDTH-40)+5, rand.nextInt(HEIGHT-40)+5, ID.Asteroid, sprites.getAsteroid()));
         }
-        handler.addObject(new Player(WIDTH/2 -32, HEIGHT/2-32, ID.Player)); 
-        
+       
     }
     
     public synchronized void start(){
